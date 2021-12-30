@@ -3,6 +3,7 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
+from django.db import IntegrityError
 
 
 class BaseView(View):
@@ -28,5 +29,9 @@ class UserCreateView(BaseView):
         email = request.POST.get('email', '')
 
         user = User.objects.create_user(username, email, password)
+        try:
+            user = User.objects.create_user(username, email, password)
+        except IntegrityError:
+            return self.response(message='이미 존재하는 아이디입니다.', status=400)
 
         return self.response({'user.id': user.id})
