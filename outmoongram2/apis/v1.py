@@ -31,6 +31,11 @@ class UserLoginView(BaseView):
         login(request, user)
         return self.response()
 
+class UserLogoutView(BaseView):
+    def get(self.request):
+        logout(request)
+        return self.response()
+
 class UserCreateView(BaseView):
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
