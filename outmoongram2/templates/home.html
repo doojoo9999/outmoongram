@@ -12,7 +12,7 @@
 
   <script>
 $(document).ready(function () {
-$('loginbutton').click(function() {
+$('#loginbutton').click(function() {
       $.post('/apis/v1/users/login/', {'username': $('#username').val(), 'password': $('#password').val()}, function() {
         location.reload();
       }).fail(function(data) {
