@@ -23,7 +23,7 @@ from django.shortcuts import redirect
 
 class NonUserTemplateView(TemplateView):
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_annonymous:
+        if not request.user.is_anonymous:
             return redirect('contetnts_home')
         return super(NonUserTemplateView, self).dispatch(request, *args, **kwargs)
 
@@ -31,7 +31,7 @@ class NonUserTemplateView(TemplateView):
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('', HomeView.as_view(), name="contents_relation"),
+    path('', HomeView.as_view(), name="contents_home"),
 
     path('apis/', include('apis.urls')),
 
