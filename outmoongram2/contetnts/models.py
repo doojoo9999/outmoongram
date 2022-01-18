@@ -14,6 +14,7 @@ class Content(BaseModel):
 
 class Image(BaseModel):
     content = models.ForeignKey(Content, on_delete=models.CASCADE)
+    image = models.ImageField()
     order = models.SmallIntegerField()
 
     class Meta:
