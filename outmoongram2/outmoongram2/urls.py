@@ -18,6 +18,15 @@ from django.urls import path
 from contetnts.views import HomeView
 from django.views.generic import TemplateView
 from django.urls import include, path
+from django.shortcuts import redirect
+
+
+class NonUserTemplateView(TemplateView):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_annonymous:
+            return redirect('contetnts_home')
+        return super(NonUserTemplateView, self).dispatch(request, *args, **kwargs)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,8 +35,9 @@ urlpatterns = [
 
     path('apis/', include('apis.urls')),
 
-    path('login/', TemplateView.as_view(template_name='login.html'), name='login'),
+    path('login/', NonUserTemplateView.as_view(template_name='login.html'), name='login'),
 
-    path('register/', TemplateView.as_view(template_nmae='register.html'), name='register'),
+    path('register/', NonUserTemplateView.as_view(template_name='register.html'), name='register'),
 
 ]
+

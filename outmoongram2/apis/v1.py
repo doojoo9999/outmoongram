@@ -37,11 +37,6 @@ class UserLogoutView(BaseView):
         return self.response()
 
 class UserCreateView(BaseView):
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        # 테스트하기 위해서 씁니다.
-        return super(UserCreateView, self).dispatch(request, *args, **kwargs)
-
     def post(self, request):
         # Restful 하게 하기 위해선 POST, DELETE 다 나누어야 하지만, 편의상 POST만 사용
         username = request.POST.get('username', '')
@@ -57,7 +52,6 @@ class UserCreateView(BaseView):
             return self.response(message='올바른 이메일을 입력해 주세요.', status=400)
 
 
-        user = User.objects.create_user(username, email, password)
         try:
             user = User.objects.create_user(username, email, password)
         except IntegrityError:
