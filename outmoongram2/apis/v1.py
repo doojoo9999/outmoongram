@@ -32,7 +32,7 @@ class UserLoginView(BaseView):
         return self.response()
 
 class UserLogoutView(BaseView):
-    def get(self.request):
+    def get(self,request):
         logout(request)
         return self.response()
 
