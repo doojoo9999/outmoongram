@@ -28,4 +28,6 @@ urlpatterns = [
 
     path('login/', TemplateView.as_view(template_name='login.html'), name='login'),
 
+    path('register/', TemplateView.as_view(template_nmae='register.html'), name='register'),
+
 ]
